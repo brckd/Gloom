@@ -1,4 +1,4 @@
-name: Build debug APK
+name: Build APK
 
 on:
   push:
@@ -34,10 +34,13 @@ jobs:
         uses: android-actions/setup-android@v2.0.10
 
       - name: Build APK
-        run: chmod +x ./gradlew && ./gradlew :app:android:assembleDebug
+        run: chmod +x ./gradlew && ./gradlew :app:android:assemble
+        
+      - name: List apkgs
+        run: find app/android/build/outputs/**/*
 
       - name: Upload APK
         uses: actions/upload-artifact@v4.4.0
         with:
           name: gloom-debug
-          path: app/android/build/outputs/apk/debug/android-debug.apk
+          path: app/android/build/outputs/apk/release/android-release.apk
